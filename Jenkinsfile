@@ -45,7 +45,7 @@ podTemplate(yaml: '''
           sh '''
             /kaniko/executor --dockerfile `pwd`/Dockerfile \
             --context `pwd` \
-            --destination ashishonnet/kaniko-java-app-image:${BUILD_NUMBER}
+            --destination ashishonnet/simple-java-maven-app:${BUILD_NUMBER}
           '''
         }
       }
