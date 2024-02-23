@@ -39,6 +39,17 @@ podTemplate(yaml: '''
       }
     }
 
+  stage('SonarQube Scan') {
+      git url: 'https://github.com/ashishonnet/kubernetes-kaniko.git', branch: 'main'
+      container('maven') {
+        stage('Scan a Maven project') {
+          sh '''
+          mvn sonar:sonar -Dsonar.host.url=http://172.29.66.98:32668/ -Dsonar.login=sqp_0ac91fd86b7ca14f9f04bc9131f3ae0912344db4 -Dsonar.projectKey=MEGH
+          '''
+        }
+      }
+    }
+
     stage('Create Image') {
       container('kaniko') {
         stage('Push Image to Container Repository') {
@@ -50,6 +61,8 @@ podTemplate(yaml: '''
         }
       }
     }
+
+    
 
   }
 }
